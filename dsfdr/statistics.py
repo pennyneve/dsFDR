@@ -35,8 +35,7 @@ def pairedwilcox(data, labels):
     group0 = data[:, labels == 0]
     group1 = data[:, labels == 1]
     dat = np.absolute(group0 - group1)
-    tstat = np.array([wilcoxon(dat)
-                      .statistic for i in range(np.shape(data)[0])])
+    tstat = np.array([wilcoxon(dat[i]).statistic for i in range(np.shape(dat)[0])])
     return tstat
 
 
