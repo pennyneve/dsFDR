@@ -44,6 +44,7 @@ def dsfdr(data, labels, transform_type='rank', method='meandiff',
         'meandiff' : mean(A)-mean(B) (binary)
         'mannwhitney' : mann-whitney u-test (binary)
         'kruwallis' : kruskal-wallis test (multiple groups)
+        'pairedwilcox' : paired wilcox test
         'stdmeandiff' : (mean(A)-mean(B))/(std(A)+std(B)) (binary)
         'spearman' : spearman correlation (numeric)
         'pearson' : pearson correlation (numeric)
@@ -179,13 +180,16 @@ def dsfdr(data, labels, transform_type='rank', method='meandiff',
         u = np.abs(mean1 - mean2)
 
     elif method == 'mannwhitney' or method == \
-                   'kruwallis' or method == 'stdmeandiff':
+                   'kruwallis' or method == 'stdmeandiff' or method == 'pairedwilcox':
         if method == 'mannwhitney':
             logger.debug('Using statistic mannwhitney')
             method = statistics.mannwhitney
         if method == 'kruwallis':
             logger.debug('Using statistic kruwallis')
             method = statistics.kruwallis
+        if method == 'pairedwilcox':
+            logger.debug('Using statistic paired wilcox')
+            method = statistics.pairedwilcox
         if method == 'stdmeandiff':
             method = statistics.stdmeandiff
             logger.debug('Using statistic stdmeandiff')
