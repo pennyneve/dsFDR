@@ -1,5 +1,5 @@
 import numpy as np
-from scipy.stats import rankdata
+from scipy.stats import rankdata,wilcoxon
 
 
 # different methods to calculate test statistic
