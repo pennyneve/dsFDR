@@ -59,7 +59,16 @@ def pairedwilcoxU(x, y):
     mn = count * (count + 1.) * 0.25
     se = count * (count + 1.) * (2. * count + 1.)
     
-    return T
+    replist, repnum = find_repeats(r)
+    if repnum.size != 0:
+        # Correction for repeated elements.
+        se -= 0.5 * (repnum * (repnum * repnum - 1)).sum()
+
+    se = sqrt(se / 24)
+    correction = 0.5 * int(bool(correction)) * np.sign(T - mn)
+    z = (T - mn - correction) / se
+    
+    return z
     
     #x, y = map(np.asarray, (x, y))
     #n1 = len(x)
