@@ -31,12 +31,47 @@ def mannwhitneyU(x, y):
     U = min(Ux, Uy)
     return U
 
+    #from scipy MannWU
+    #x = asarray(x)
+    #y = asarray(y)
+    #n1 = len(x)
+    #n2 = len(y)
+    #ranked = rankdata(np.concatenate((x, y)))
+    #rankx = ranked[0:n1]  # get the x-ranks
+    #u1 = n1*n2 + (n1*(n1+1))/2.0 - np.sum(rankx, axis=0)  # calc U for x
+    #u2 = n1*n2 - u1  # remainder is U for y
+    #bigu = max(u1, u2)
+    #smallu = min(u1, u2)
+
+def pairedwilcoxU(x, y):
+    x, y = map(np.asarray, (x, y))
+    n1 = len(x)
+    n2 = len(y)
+    ranked = rankdata(np.concatenate((x, y)))
+    x = ranked[:n1]
+    s = np.sum(x, axis=0)
+    expected = n1 * (n1+n2+1) / 2.0
+    z = (s - expected) / np.sqrt(n1*n2*(n1+n2+1)/12.0)
+    return z
+    
+    
 def pairedwilcox(data, labels):
     group0 = data[:, labels == 0]
     group1 = data[:, labels == 1]
-    dat = np.array(group0 - group1)
-    tstat = np.array([wilcoxon(dat[i]).statistic for i in range(np.shape(dat)[0])])
+    #tstat = np.array([wilcoxon(dat[i]).statistic for i in range(np.shape(dat)[0])])
+    tstat = np.array([pairedwilcoxU(group0[i, :], group1[i, :]) i in range(np.shape(data)[0])])
     return tstat
+
+    #x, y = map(np.asarray, (x, y))
+    #n1 = len(x)
+    #n2 = len(y)
+    #alldata = np.concatenate((x, y))
+    #ranked = rankdata(alldata)
+    #x = ranked[:n1]
+    #s = np.sum(x, axis=0)
+    #expected = n1 * (n1+n2+1) / 2.0
+    #z = (s - expected) / np.sqrt(n1*n2*(n1+n2+1)/12.0)
+    #prob = 2 * distributions.norm.sf(abs(z))
 
 
 def mannwhitney(data, labels):
