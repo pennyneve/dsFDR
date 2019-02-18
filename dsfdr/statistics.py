@@ -34,8 +34,8 @@ def mannwhitneyU(x, y):
 def pairedwilcox(data, labels):
     group0 = data[:, labels == 0]
     group1 = data[:, labels == 1]
-    dat = np.absolute(group0 - group1)
-    tstat = np.array([wilcoxon(dat[i]).pvalue for i in range(np.shape(dat)[0])])
+    dat = np.array(group0 - group1)
+    tstat = np.array([wilcoxon(dat[i]).statistic for i in range(np.shape(dat)[0])])
     return tstat
 
 
