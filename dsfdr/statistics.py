@@ -44,15 +44,32 @@ def mannwhitneyU(x, y):
     #smallu = min(u1, u2)
 
 def pairedwilcoxU(x, y):
-    x, y = map(np.asarray, (x, y))
-    n1 = len(x)
-    n2 = len(y)
-    ranked = rankdata(np.concatenate((x, y)))
-    x = ranked[:n1]
-    s = np.sum(x, axis=0)
-    expected = n1 * (n1+n2+1) / 2.0
-    z = (s - expected) / np.sqrt(n1*n2*(n1+n2+1)/12.0)
-    return z
+    x, y = map(asarray, (x, y))
+    d = x - y
+    d = compress(np.not_equal(d, 0), d, axis=-1)
+    
+    if count < 10:
+        warnings.warn("Warning: sample size too small for normal approximation.")
+    
+    r = stats.rankdata(abs(d))
+    r_plus = np.sum((d > 0) * r, axis=0)
+    r_minus = np.sum((d < 0) * r, axis=0)
+    
+    T = min(r_plus, r_minus)
+    mn = count * (count + 1.) * 0.25
+    se = count * (count + 1.) * (2. * count + 1.)
+    
+    return T
+    
+    #x, y = map(np.asarray, (x, y))
+    #n1 = len(x)
+    #n2 = len(y)
+    #ranked = rankdata(np.concatenate((x, y)))
+    #x = ranked[:n1]
+    #s = np.sum(x, axis=0)
+    #expected = n1 * (n1+n2+1) / 2.0
+    #z = (s - expected) / np.sqrt(n1*n2*(n1+n2+1)/12.0)
+    #return z
     
     
 def pairedwilcox(data, labels):
