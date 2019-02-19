@@ -54,6 +54,8 @@ def pairedwilcoxU(x, y):
     mn = count * (count + 1.) * 0.25
     se = count * (count + 1.) * (2. * count + 1.)
     
+    correction = False
+    
     replist, repnum = find_repeats(r)
     if repnum.size != 0:
         # Correction for repeated elements.
