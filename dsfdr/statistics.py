@@ -49,8 +49,8 @@ def pairedwilcoxU(x, y):
     d = x - y
     d = compress(np.not_equal(d, 0), d, axis=-1)
     
-    if count < 10:
-        warnings.warn("Warning: sample size too small for normal approximation.")
+    #if count < 10:
+    #    warnings.warn("Warning: sample size too small for normal approximation.")
     
     r = stats.rankdata(abs(d))
     r_plus = np.sum((d > 0) * r, axis=0)
