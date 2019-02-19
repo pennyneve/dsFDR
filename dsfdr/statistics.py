@@ -40,10 +40,10 @@ def mannwhitney(data, labels):
     return tstat
 
 def pairedwilcoxU(x, y):
-    x, y = map(asarray, (x, y))
+    #x, y = map(asarray, (x, y))
     d = x - y
     d = compress(np.not_equal(d, 0), d, axis=-1)
-    r = stats.rankdata(abs(d))
+    r = rankdata(abs(d))
     r_plus = np.sum((d > 0) * r, axis=0)
     r_minus = np.sum((d < 0) * r, axis=0)
     U = min(r_plus, r_minus)
