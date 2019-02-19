@@ -42,7 +42,9 @@ def mannwhitneyU(x, y):
     #u2 = n1*n2 - u1  # remainder is U for y
     #bigu = max(u1, u2)
     #smallu = min(u1, u2)
+    
 
+"""
 def pairedwilcoxU(x, y):
     x, y = map(asarray, (x, y))
     d = x - y
@@ -98,7 +100,7 @@ def pairedwilcox(data, labels):
     #expected = n1 * (n1+n2+1) / 2.0
     #z = (s - expected) / np.sqrt(n1*n2*(n1+n2+1)/12.0)
     #prob = 2 * distributions.norm.sf(abs(z))
-
+"""
 
 def mannwhitney(data, labels):
     group0 = data[:, labels == 0]
