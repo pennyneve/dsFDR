@@ -50,22 +50,24 @@ def pairedwilcoxU(x, y):
     r_minus = np.sum((d < 0) * r, axis=0)
     
     T = min(r_plus, r_minus)
-    count = len(d)
-    mn = count * (count + 1.) * 0.25
-    se = count * (count + 1.) * (2. * count + 1.)
+    return T
     
-    correction = False
-    
-    replist, repnum = find_repeats(r)
-    if repnum.size != 0:
-        # Correction for repeated elements.
-        se -= 0.5 * (repnum * (repnum * repnum - 1)).sum()
-
-    se = sqrt(se / 24)
-    correction = 0.5 * int(bool(correction)) * np.sign(T - mn)
-    z = (T - mn - correction) / se
-    
-    return z
+    #count = len(d)
+    #mn = count * (count + 1.) * 0.25
+    #se = count * (count + 1.) * (2. * count + 1.)
+    #
+    #correction = False
+    #
+    #replist, repnum = find_repeats(r)
+    #if repnum.size != 0:
+    #    # Correction for repeated elements.
+    #    se -= 0.5 * (repnum * (repnum * repnum - 1)).sum()
+    #
+    #se = sqrt(se / 24)
+    #correction = 0.5 * int(bool(correction)) * np.sign(T - mn)
+    #z = (T - mn - correction) / se
+    #
+    #return z
 
 def pairedwilcox(data, labels):
     group0 = data[:, labels == 0]
