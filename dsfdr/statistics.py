@@ -1,5 +1,6 @@
 import numpy as np
 from scipy.stats import rankdata
+import scipy.stats
 
 
 # different methods to calculate test statistic
