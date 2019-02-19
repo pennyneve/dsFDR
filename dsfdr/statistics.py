@@ -39,6 +39,21 @@ def mannwhitney(data, labels):
                      for i in range(np.shape(data)[0])])
     return tstat
 
+def pairedwilcoxU(x, y):
+    x, y = map(asarray, (x, y))
+    d = x - y
+    d = compress(np.not_equal(d, 0), d, axis=-1)
+    r = stats.rankdata(abs(d))
+    r_plus = np.sum((d > 0) * r, axis=0)
+    r_minus = np.sum((d < 0) * r, axis=0)
+    U = min(r_plus, r_minus)
+    return U
+
+def pairedwilcox(data, labels):
+    group0 = data[:, labels == 0]
+    group1 = data[:, labels == 1]
+    tstat = np.array([pairedwilcoxU(group0[i, :], group1[i, :]) i in range(np.shape(data)[0])])
+    return tstat
 
 # calculate test statistic for Kruskal-Wallis
 def tiecorrect(rankvals):
