@@ -1,5 +1,5 @@
 import numpy as np
-from scipy.stats import rankdata,wilcoxon
+from scipy.stats import rankdata
 
 
 # different methods to calculate test statistic
@@ -30,77 +30,6 @@ def mannwhitneyU(x, y):
     Uy = n1 * n2 - Ux
     U = min(Ux, Uy)
     return U
-
-    #from scipy MannWU
-    #x = asarray(x)
-    #y = asarray(y)
-    #n1 = len(x)
-    #n2 = len(y)
-    #ranked = rankdata(np.concatenate((x, y)))
-    #rankx = ranked[0:n1]  # get the x-ranks
-    #u1 = n1*n2 + (n1*(n1+1))/2.0 - np.sum(rankx, axis=0)  # calc U for x
-    #u2 = n1*n2 - u1  # remainder is U for y
-    #bigu = max(u1, u2)
-    #smallu = min(u1, u2)
-    
-
-def pairedwilcoxU(x, y):
-    x, y = map(asarray, (x, y))
-    d = x - y
-    d = compress(np.not_equal(d, 0), d, axis=-1)
-    
-    #if count < 10:
-    #    warnings.warn("Warning: sample size too small for normal approximation.")
-    
-    r = stats.rankdata(abs(d))
-    r_plus = np.sum((d > 0) * r, axis=0)
-    r_minus = np.sum((d < 0) * r, axis=0)
-    
-    T = min(r_plus, r_minus)
-    mn = count * (count + 1.) * 0.25
-    se = count * (count + 1.) * (2. * count + 1.)
-    
-    return T
-    
-    #replist, repnum = find_repeats(r)
-    #if repnum.size != 0:
-    #    # Correction for repeated elements.
-    #    se -= 0.5 * (repnum * (repnum * repnum - 1)).sum()
-    #
-    #se = sqrt(se / 24)
-    #correction = 0.5 * int(bool(correction)) * np.sign(T - mn)
-    #z = (T - mn - correction) / se
-    #
-    #return z
-    
-    #x, y = map(np.asarray, (x, y))
-    #n1 = len(x)
-    #n2 = len(y)
-    #ranked = rankdata(np.concatenate((x, y)))
-    #x = ranked[:n1]
-    #s = np.sum(x, axis=0)
-    #expected = n1 * (n1+n2+1) / 2.0
-    #z = (s - expected) / np.sqrt(n1*n2*(n1+n2+1)/12.0)
-    #return z
-    
-    
-def pairedwilcox(data, labels):
-    group0 = data[:, labels == 0]
-    group1 = data[:, labels == 1]
-    #tstat = np.array([wilcoxon(dat[i]).statistic for i in range(np.shape(dat)[0])])
-    tstat = np.array([pairedwilcoxU(group0[i, :], group1[i, :]) i in range(np.shape(data)[0])])
-    return tstat
-
-    #x, y = map(np.asarray, (x, y))
-    #n1 = len(x)
-    #n2 = len(y)
-    #alldata = np.concatenate((x, y))
-    #ranked = rankdata(alldata)
-    #x = ranked[:n1]
-    #s = np.sum(x, axis=0)
-    #expected = n1 * (n1+n2+1) / 2.0
-    #z = (s - expected) / np.sqrt(n1*n2*(n1+n2+1)/12.0)
-    #prob = 2 * distributions.norm.sf(abs(z))
 
 
 def mannwhitney(data, labels):
