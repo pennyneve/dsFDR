@@ -42,7 +42,7 @@ def mannwhitney(data, labels):
 def pairedwilcoxU(x, y):
     #x, y = map(asarray, (x, y))
     d = x - y
-    d = compress(np.not_equal(d, 0), d, axis=-1)
+    d = np.compress(np.not_equal(d, 0), d, axis=-1)
     r = rankdata(abs(d))
     r_plus = np.sum((d > 0) * r, axis=0)
     r_minus = np.sum((d < 0) * r, axis=0)
