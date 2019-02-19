@@ -48,6 +48,7 @@ def pairedwilcoxU(x, y):
     r_minus = np.sum((d < 0) * r, axis=0)
     
     T = min(r_plus, r_minus)
+    count = len(d)
     mn = count * (count + 1.) * 0.25
     se = count * (count + 1.) * (2. * count + 1.)
     
