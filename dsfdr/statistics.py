@@ -1,6 +1,6 @@
 import numpy as np
 from scipy.stats import rankdata
-import scipy.stats
+from scipy.stats import find_repeats
 
 
 # different methods to calculate test statistic
