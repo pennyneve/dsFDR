@@ -44,7 +44,6 @@ def mannwhitneyU(x, y):
     #smallu = min(u1, u2)
     
 
-"""
 def pairedwilcoxU(x, y):
     x, y = map(asarray, (x, y))
     d = x - y
@@ -61,16 +60,18 @@ def pairedwilcoxU(x, y):
     mn = count * (count + 1.) * 0.25
     se = count * (count + 1.) * (2. * count + 1.)
     
-    replist, repnum = find_repeats(r)
-    if repnum.size != 0:
-        # Correction for repeated elements.
-        se -= 0.5 * (repnum * (repnum * repnum - 1)).sum()
-
-    se = sqrt(se / 24)
-    correction = 0.5 * int(bool(correction)) * np.sign(T - mn)
-    z = (T - mn - correction) / se
+    return T
     
-    return z
+    #replist, repnum = find_repeats(r)
+    #if repnum.size != 0:
+    #    # Correction for repeated elements.
+    #    se -= 0.5 * (repnum * (repnum * repnum - 1)).sum()
+    #
+    #se = sqrt(se / 24)
+    #correction = 0.5 * int(bool(correction)) * np.sign(T - mn)
+    #z = (T - mn - correction) / se
+    #
+    #return z
     
     #x, y = map(np.asarray, (x, y))
     #n1 = len(x)
@@ -100,7 +101,7 @@ def pairedwilcox(data, labels):
     #expected = n1 * (n1+n2+1) / 2.0
     #z = (s - expected) / np.sqrt(n1*n2*(n1+n2+1)/12.0)
     #prob = 2 * distributions.norm.sf(abs(z))
-"""
+
 
 def mannwhitney(data, labels):
     group0 = data[:, labels == 0]
