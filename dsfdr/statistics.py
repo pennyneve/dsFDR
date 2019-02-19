@@ -52,7 +52,8 @@ def pairedwilcoxU(x, y):
 def pairedwilcox(data, labels):
     group0 = data[:, labels == 0]
     group1 = data[:, labels == 1]
-    tstat = np.array([pairedwilcoxU(group0[i, :], group1[i, :]) i in range(np.shape(data)[0])])
+    tstat = np.array([pairedwilcoxU(group0[i, :], group1[i, :]) 
+                      for i in range(np.shape(data)[0])])
     return tstat
 
 # calculate test statistic for Kruskal-Wallis
